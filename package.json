@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "sass": "node-sass -w scss/ -o css/",
-    "live-server": "live-server --watch=./",
+    "live-server": "live-server --watch=./ --ignore=./.git",
     "dev": "run-p live-server sass"
   },
   "keywords": [],
