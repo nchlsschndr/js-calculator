@@ -8,7 +8,7 @@ const display = document.querySelector("#display");
 const keys = document.querySelector(".pad");
 
 let currentNum = [];
-let tempNum = undefined;
+let tempNum = NaN;
 let activeOperator = "";
 let result = undefined;
 
@@ -28,7 +28,17 @@ function setOperator(operator) {
     tempNum = arrToFloat(currentNum);
     currentNum = [];
   }
+  setOperatorUI(operator);
   activeOperator = operator;
+}
+
+function setOperatorUI(operator) {
+  const buttons = document.querySelectorAll(`button[data-key-type="operator"]`);
+  buttons.forEach(function(el){
+    el.classList.remove("active");
+  });
+  const button = document.querySelector(`button[data-key="${operator}"]`);
+  button.classList.add("active");
 }
 
 function calculate(n1, operator, n2) {
@@ -79,7 +89,6 @@ function handleClick(e) {
 
   if (key === "clear") {
     currentNum = [];
-    activeOperator = "";
     updateDisplay("0");
   }
 
@@ -97,7 +106,7 @@ function handleClick(e) {
   }
 
   if (key === "equals") {
-    if (isNaN(tempNum) && currentNum.length > 0) {
+    if (!isNaN(tempNum) && currentNum.length > 0) {
       result = calculate(tempNum, activeOperator, arrToFloat(currentNum));
       updateDisplay(result);
       currentNum = [result]; // to work with
