@@ -1,4 +1,5 @@
-// TODO: show active operator in UI
+// TODO: optimize setOperator/setoperatorUI … maybe put together 
+
 // TODO: calculate when tempNum and currentNum are filled and operator is clicked
 
 // TODO: keyboard functionality
@@ -37,6 +38,9 @@ function setOperatorUI(operator) {
   buttons.forEach(function(el){
     el.classList.remove("active");
   });
+  if (operator === 'reset'){
+    return;
+  }
   const button = document.querySelector(`button[data-key="${operator}"]`);
   button.classList.add("active");
 }
@@ -60,7 +64,7 @@ function handleClick(e) {
   const key = e.target.dataset.key;
 
   // check if key is a number
-  if (/[1-9]/.test(key)) {
+  if (/[0-9]/.test(key)) {
     // empty everything after 'equals' was clicked to start over
     if (result) {
       currentNum = [];
@@ -81,9 +85,11 @@ function handleClick(e) {
   }
 
   if (key === "allClear") {
-    activeOperator = "";
+    setOperatorUI('reset');
     currentNum = [];
-    tempNum = [];
+    tempNum = NaN;
+    activeOperator = "";
+    result = undefined;
     updateDisplay("0");
   }
 
@@ -111,18 +117,31 @@ function handleClick(e) {
       updateDisplay(result);
       currentNum = [result]; // to work with
       tempNum = undefined;
+      setOperatorUI('reset');
       activeOperator = "";
     }
   }
 
   // for behind the scenes / debug purposes
-  console.clear();
-  console.dir(`
-    tempNum: ${tempNum}\n
-    activeOperator: ${activeOperator}\n
-    currentNum: [ ${currentNum} ]\n
+  // console.clear();
+  // console.dir(`
+  //   tempNum: ${tempNum}\n
+  //   activeOperator: ${activeOperator}\n
+  //   currentNum: [ ${currentNum} ]\n
+  //   result: ${result}
+  // `);
+  document.querySelector('.temp-num').textContent = `
+    tempNum: ${tempNum}
+  `;
+  document.querySelector('.active-operator').textContent = `
+    activeOperator: ${activeOperator}
+  `;
+  document.querySelector('.current-num').textContent = `
+    currentNum: [ ${currentNum} ]
+  `;
+  document.querySelector('.result').textContent = `
     result: ${result}
-  `);
+  `;
 }
 
 keys.addEventListener("click", function(e) {
