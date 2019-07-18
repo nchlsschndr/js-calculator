@@ -73,6 +73,8 @@ function handleClick(e) {
     }
     currentNum.push(parseInt(key));
     updateDisplay(arrToFloat(currentNum));
+    console.log(this.event.button);
+    
   }
 
   if (key === "comma") {
@@ -122,14 +124,6 @@ function handleClick(e) {
     }
   }
 
-  // for behind the scenes / debug purposes
-  // console.clear();
-  // console.dir(`
-  //   tempNum: ${tempNum}\n
-  //   activeOperator: ${activeOperator}\n
-  //   currentNum: [ ${currentNum} ]\n
-  //   result: ${result}
-  // `);
   document.querySelector('.temp-num').textContent = `
     -------tempNum: ${tempNum}
   `;
