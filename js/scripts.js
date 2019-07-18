@@ -73,7 +73,6 @@ function handleClick(e) {
     }
     currentNum.push(parseInt(key));
     updateDisplay(arrToFloat(currentNum));
-    console.log(this.event.button);
     
   }
 
