@@ -91,5 +91,13 @@ button, p {
 .debug {
   font-size: 16px;
   background: none;
-  color: #112;
-  padding: 0 10px; }
+  color: #aab;
+  padding: 10px;
+  font-weight: 700; }
+  .debug .var-names {
+    text-align: right; }
+  .debug p {
+    font-family: monospace;
+    margin: 0; }
+  .debug hr {
+    border-color: #aab; }

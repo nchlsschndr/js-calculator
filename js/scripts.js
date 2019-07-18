@@ -116,7 +116,7 @@ function handleClick(e) {
       result = calculate(tempNum, activeOperator, arrToFloat(currentNum));
       updateDisplay(result);
       currentNum = [result]; // to work with
-      tempNum = undefined;
+      tempNum = NaN;
       setOperatorUI('reset');
       activeOperator = "";
     }
@@ -131,16 +131,16 @@ function handleClick(e) {
   //   result: ${result}
   // `);
   document.querySelector('.temp-num').textContent = `
-    tempNum: ${tempNum}
+    -------tempNum: ${tempNum}
   `;
   document.querySelector('.active-operator').textContent = `
     activeOperator: ${activeOperator}
   `;
   document.querySelector('.current-num').textContent = `
-    currentNum: [ ${currentNum} ]
+    ----currentNum: [${currentNum}]
   `;
   document.querySelector('.result').textContent = `
-    result: ${result}
+  --------result: ${result}
   `;
 }
 
