@@ -9,7 +9,7 @@ const display = document.querySelector("#display");
 const keys = document.querySelector(".pad");
 
 let currentNum = [];
-let tempNum = NaN;
+let tempNum = null;
 let activeOperator = "";
 let result = undefined;
 
@@ -23,7 +23,7 @@ function arrToFloat(array) {
 }
 
 function setOperator(operator) {
-  // only switch numbers if no operator set
+  // only switch numbers if no operator previously set
   // with this you can change operator after currentNum is set
   if (!activeOperator) {
     tempNum = arrToFloat(currentNum);
@@ -88,7 +88,7 @@ function handleClick(e) {
   if (key === "allClear") {
     setOperatorUI('reset');
     currentNum = [];
-    tempNum = NaN;
+    tempNum = null;
     activeOperator = "";
     result = undefined;
     updateDisplay("0");
@@ -107,17 +107,17 @@ function handleClick(e) {
     key === "multiply"
   ) {
     // set only if a number was clicked or tempNum is set
-    if (currentNum.length > 0 || !isNaN(tempNum)) {
+    if (currentNum.length > 0 || tempNum === null) {
       setOperator(key);
     }
   }
 
   if (key === "equals") {
-    if (!isNaN(tempNum) && currentNum.length > 0) {
+    if (tempNum === null && currentNum.length > 0) {
       result = calculate(tempNum, activeOperator, arrToFloat(currentNum));
       updateDisplay(result);
       currentNum = [result]; // to work with
-      tempNum = NaN;
+      tempNum = null;
       setOperatorUI('reset');
       activeOperator = "";
     }
