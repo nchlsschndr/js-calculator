@@ -1,7 +1,5 @@
 // TODO: optimize setOperator/setoperatorUI … maybe put together 
 
-// TODO: calculate when tempNum and currentNum are filled and operator is clicked
-
 // TODO: keyboard functionality
 // TDOD: handle weird JS behaviour e.g 2.3 - 2.5 = -0.20000000000000018
 
@@ -35,10 +33,10 @@ function setOperator(operator) {
 
 function setOperatorUI(operator) {
   const buttons = document.querySelectorAll(`button[data-key-type="operator"]`);
-  buttons.forEach(function(el){
+  buttons.forEach(function (el) {
     el.classList.remove("active");
   });
-  if (operator === 'reset'){
+  if (operator === 'reset') {
     return;
   }
   const button = document.querySelector(`button[data-key="${operator}"]`);
@@ -73,7 +71,7 @@ function handleClick(e) {
     }
     currentNum.push(parseInt(key));
     updateDisplay(arrToFloat(currentNum));
-    
+
   }
 
   if (key === "comma") {
@@ -106,40 +104,37 @@ function handleClick(e) {
     key === "divide" ||
     key === "multiply"
   ) {
-    // set only if a number was clicked or tempNum is set
+    // only if a number was clicked or tempNum is set
     if (currentNum.length > 0 || tempNum != null) {
+      equals();
       setOperator(key);
     }
   }
 
   if (key === "equals") {
-    if (tempNum != null && currentNum.length > 0) {
-      result = calculate(tempNum, activeOperator, arrToFloat(currentNum));
-      updateDisplay(result);
-      currentNum = [result]; // to work with
-      tempNum = null;
-      setOperatorUI('reset');
-      activeOperator = "";      
-    }
+    equals();
   }
-
-  document.querySelector('.temp-num').textContent = `
-    -------tempNum: ${tempNum}
-  `;
-  document.querySelector('.active-operator').textContent = `
-    activeOperator: ${activeOperator}
-  `;
-  document.querySelector('.current-num').textContent = `
-    ----currentNum: [${currentNum}]
-  `;
-  document.querySelector('.result').textContent = `
-  --------result: ${result}
-  `;
+  // debug
+  document.querySelector('.temp-num').textContent = `-------tempNum: ${tempNum}`;
+  document.querySelector('.active-operator').textContent = `activeOperator: ${activeOperator}`;
+  document.querySelector('.current-num').textContent = `----currentNum: [${currentNum}]`;
+  document.querySelector('.result').textContent = `--------result: ${result}`;
 }
 
-keys.addEventListener("click", function(e) {
+keys.addEventListener("click", function (e) {
   // event delegation
   if (e.target.matches("button")) {
     handleClick(e);
   }
 });
+
+function equals() {
+  if (tempNum != null && currentNum.length > 0) {
+    result = calculate(tempNum, activeOperator, arrToFloat(currentNum));
+    updateDisplay(result);
+    currentNum = [result]; // to work with
+    tempNum = null;
+    setOperatorUI('reset');
+    activeOperator = "";
+  }
+}
