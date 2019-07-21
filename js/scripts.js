@@ -107,19 +107,19 @@ function handleClick(e) {
     key === "multiply"
   ) {
     // set only if a number was clicked or tempNum is set
-    if (currentNum.length > 0 || tempNum === null) {
+    if (currentNum.length > 0 || tempNum != null) {
       setOperator(key);
     }
   }
 
   if (key === "equals") {
-    if (tempNum === null && currentNum.length > 0) {
+    if (tempNum != null && currentNum.length > 0) {
       result = calculate(tempNum, activeOperator, arrToFloat(currentNum));
       updateDisplay(result);
       currentNum = [result]; // to work with
       tempNum = null;
       setOperatorUI('reset');
-      activeOperator = "";
+      activeOperator = "";      
     }
   }
 
