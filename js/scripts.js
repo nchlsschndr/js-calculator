@@ -23,7 +23,7 @@ function arrToFloat(array) {
 }
 
 function setOperator(operator) {
-  // only switch numbers if no operator previously set
+  // only switch numbers if no operator set
   // with this you can change operator after currentNum is set
   if (!activeOperator) {
     tempNum = arrToFloat(currentNum);
