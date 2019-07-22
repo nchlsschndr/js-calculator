@@ -1,3 +1,8 @@
+// Basically the numbers get pushed to currentNum
+// when clicking an operator, currentNum gets tempNum
+// new numbers get pushed to currentNum again
+// in the end its tempNum *operator* currentNum
+
 // TODO: optimize setOperator
 // TODO: Round numbers
 
