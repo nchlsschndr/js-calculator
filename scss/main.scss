@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap');
 
 html, body {
   height: 100%;
@@ -40,12 +41,12 @@ button, p {
   font-weight: 700;
   width: 300px;
   margin: 0;
-  padding: 12px 20px;
-  font-size: 35px;
+  padding: 12px 20px 8px;
+  font-size: 40px;
   text-align: right;
   background: #334;
   border-radius: 5px;
-  font-family: monospace;
+  font-family: "Share Tech Mono", monospace;
   overflow: hidden;
 }
 
