@@ -1,6 +1,5 @@
 // TODO: optimize setOperator
 // TODO: Round numbers
-// TODO: Disable number -> comma -> number -> COMMA
 
 // TODO: keyboard functionality
 // TODO: handle weird JS behaviour e.g 2.3 - 2.5 = -0.20000000000000018
@@ -39,7 +38,7 @@ function handleClick(e) {
 
   if (key === "comma") {
     // dont set comma if there is a comma already or currentNum is empty
-    if (currentNum[currentNum.length - 1] === "." || currentNum.length == 0) {
+    if ((currentNum.indexOf('.') > -1) || currentNum.length === 0) {
       return;
     }
     currentNum.push(".");
