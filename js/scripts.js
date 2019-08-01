@@ -4,11 +4,8 @@
 // in the end its tempNum *operator* currentNum
 
 // TODO: optimize setOperator
-// TODO: round currentNum so the display doesn't overflow
 
 // TODO: keyboard functionality
-// TODO: handle weird JS behaviour e.g 2.3 - 2.5 = -0.20000000000000018
-//       probably with a library like decimal.js or big.js
 
 const display = document.querySelector("#display");
 const keys = document.querySelector(".pad");
@@ -133,15 +130,18 @@ function equals() {
 }
 
 function calculate(n1, operator, n2) {
+  let x = new Big(n1);
+  let y = new Big(n2);
+
   switch (operator) {
     case "plus":
-      return n1 + n2;
+      return x.plus(y).round(10);
     case "minus":
-      return n1 - n2;
+      return x.minus(y).round(10);
     case "divide":
-      return n1 / n2;
+      return x.div(y).round(10);
     case "multiply":
-      return n1 * n2;
+      return x.times(y).round(10);
     default:
       return "operator error";
   }
