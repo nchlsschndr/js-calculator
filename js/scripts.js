@@ -5,8 +5,6 @@
 
 // TODO: optimize setOperator
 
-// TODO: keyboard functionality
-
 const display = document.querySelector("#display");
 const keys = document.querySelector(".pad");
 
@@ -15,16 +13,15 @@ let tempNum = null;
 let activeOperator = "";
 let result = null;
 
-keys.addEventListener("click", function (e) {
+keys.addEventListener("click", function (event) {
   // event delegation
-  if (e.target.matches("button")) {
-    handleClick(e);
+  if (event.target.matches("button")) {
+    const key = event.target.dataset.key;
+    handleClick(key);
   }
 });
 
-function handleClick(e) {
-  const key = e.target.dataset.key;
-
+function handleClick(key) {
   // check if key is a number
   if (/[0-9]/.test(key)) {
     // empty everything after there was a previous operation to start over
@@ -147,4 +144,43 @@ function calculate(n1, operator, n2) {
     default:
       return "operator error";
   }
+}
+
+// Keyboard functionality
+document.onkeydown = function(event) {
+  event.preventDefault();
+  const key = String.fromCharCode(event.keyCode);
+  const keyCode = event.keyCode;
+  if (/[0-9]/.test(key)) {
+    handleClick(key);
+  }
+  if (keyCode === 110 || keyCode === 188) {
+    handleClick("comma");
+  }
+  if (keyCode === 107 || keyCode === 187) {
+    handleClick("plus");
+  }
+  if (keyCode === 109 || keyCode === 189) {
+    handleClick("minus");
+  }
+  if (keyCode === 111) {
+    handleClick("divide");
+  }
+  if (keyCode === 106) {
+    handleClick("multiply");
+  }
+  if (keyCode === 12 || keyCode === 8) {
+    handleClick("clear");
+  }  
+  if (keyCode === 13) {
+    handleClick("equals");
+  }
+  console.log('Key:' + key);
+  console.log('Key Code:' + keyCode);
+// debug
+document.querySelector('.temp-num').textContent = `-------tempNum: ${tempNum}`;
+document.querySelector('.active-operator').textContent = `activeOperator: ${activeOperator}`;
+document.querySelector('.current-num').textContent = `----currentNum: [${currentNum}]`;
+document.querySelector('.result').textContent = `--------result: ${result}`;
+  
 }
