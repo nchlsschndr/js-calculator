@@ -4,6 +4,9 @@
 // in the end its tempNum *operator* currentNum
 
 // TODO: optimize setOperator
+// TODO: Round displayed number
+//       big.js .round([characters fitting into display] - [comma] - [everything before comma])
+//       https://stackoverflow.com/questions/9133102/how-to-grab-substring-before-a-specified-character-jquery-or-javascript
 
 const display = document.querySelector("#display");
 const keys = document.querySelector(".pad");
