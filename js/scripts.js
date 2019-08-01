@@ -130,6 +130,8 @@ function equals() {
 }
 
 function calculate(n1, operator, n2) {
+  // Big.js for calculating with floats
+  // https://github.com/MikeMcl/big.js/
   let x = new Big(n1);
   let y = new Big(n2);
 
