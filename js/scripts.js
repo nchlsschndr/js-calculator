@@ -147,7 +147,7 @@ function calculate(n1, operator, n2) {
 }
 
 // Keyboard functionality
-document.onkeydown = function(event) {
+document.onkeydown = function (event) {
   event.preventDefault();
   const key = String.fromCharCode(event.keyCode);
   const keyCode = event.keyCode;
@@ -171,14 +171,14 @@ document.onkeydown = function(event) {
   }
   if (keyCode === 12 || keyCode === 8) {
     handleClick("clear");
-  }  
+  }
   if (keyCode === 13) {
     handleClick("equals");
   }
-// debug
-document.querySelector('.temp-num').textContent = `-------tempNum: ${tempNum}`;
-document.querySelector('.active-operator').textContent = `activeOperator: ${activeOperator}`;
-document.querySelector('.current-num').textContent = `----currentNum: [${currentNum}]`;
-document.querySelector('.result').textContent = `--------result: ${result}`;
-  
+  // debug
+  document.querySelector('.temp-num').textContent = `-------tempNum: ${tempNum}`;
+  document.querySelector('.active-operator').textContent = `activeOperator: ${activeOperator}`;
+  document.querySelector('.current-num').textContent = `----currentNum: [${currentNum}]`;
+  document.querySelector('.result').textContent = `--------result: ${result}`;
+
 }
