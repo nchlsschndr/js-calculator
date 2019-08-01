@@ -116,14 +116,18 @@ button, p {
 }
 
 .debug {
+  opacity: .4;
   position: fixed;
   top: 0;
   left: 0;
-  font-size: 16px;
+  font-size: 12px;
   background: #445;
   color: #aab;
   padding: 10px 15px;
   border-bottom-right-radius: 5px;
+  .hide {
+    color: transparent;
+  }
   p {
     font-family: monospace;
     margin: 5px 0;
