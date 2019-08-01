@@ -175,8 +175,6 @@ document.onkeydown = function(event) {
   if (keyCode === 13) {
     handleClick("equals");
   }
-  console.log('Key:' + key);
-  console.log('Key Code:' + keyCode);
 // debug
 document.querySelector('.temp-num').textContent = `-------tempNum: ${tempNum}`;
 document.querySelector('.active-operator').textContent = `activeOperator: ${activeOperator}`;
