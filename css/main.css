@@ -8,14 +8,11 @@ html, body {
 body {
   display: flex;
   align-items: center;
+  justify-content: center;
   background: #334; }
 
 button, p {
   font-family: "Open Sans"; }
-
-.boxed {
-  max-width: 960px;
-  margin: 0 auto; }
 
 :root {
   --text-color: #222; }
@@ -34,7 +31,7 @@ button, p {
   font-weight: 700;
   width: 300px;
   margin: 0;
-  padding: 12px 20px 8px;
+  padding: 8px 10px;
   font-size: 40px;
   text-align: right;
   background: #334;
@@ -74,7 +71,7 @@ button, p {
   margin-bottom: 10px; }
   .operations .button {
     height: 75px;
-    width: calc(300px / 4); }
+    width: 75px; }
 
 .clear {
   margin: 10px 0; }
@@ -92,6 +89,7 @@ button, p {
 .debug {
   position: fixed;
   top: 0;
+  left: 0;
   font-size: 16px;
   background: #445;
   color: #aab;

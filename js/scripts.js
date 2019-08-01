@@ -4,11 +4,11 @@
 // in the end its tempNum *operator* currentNum
 
 // TODO: optimize setOperator
-// TODO: Round numbers
+// TODO: round currentNum so the display doesn't overflow
 
 // TODO: keyboard functionality
 // TODO: handle weird JS behaviour e.g 2.3 - 2.5 = -0.20000000000000018
-//       probably a library like decimals.js or big.js
+//       probably with a library like decimal.js or big.js
 
 const display = document.querySelector("#display");
 const keys = document.querySelector(".pad");
