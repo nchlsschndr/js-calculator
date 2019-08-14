@@ -98,6 +98,7 @@ function arrToFloat(array) {
 
 function setOperator(operator) {
   const buttons = document.querySelectorAll(`button[data-key-type="operator"]`);
+  
   buttons.forEach(function (el) {
     el.classList.remove("active");
   });
@@ -113,6 +114,7 @@ function setOperator(operator) {
     tempNum = arrToFloat(currentNum);
     currentNum = [];
   }
+
   activeOperator = operator;
 
   const button = document.querySelector(`button[data-key="${operator}"]`);
@@ -132,8 +134,8 @@ function equals() {
 function calculate(n1, operator, n2) {
   // Big.js for calculating with floats
   // https://github.com/MikeMcl/big.js/
-  let x = new Big(n1);
-  let y = new Big(n2);
+  const x = new Big(n1);
+  const y = new Big(n2);
 
   switch (operator) {
     case "plus":
@@ -152,36 +154,45 @@ function calculate(n1, operator, n2) {
 // Keyboard functionality
 document.onkeydown = function (event) {
   event.preventDefault();
+  
   const key = String.fromCharCode(event.keyCode);
   const keyCode = event.keyCode;
+
   if (/[0-9]/.test(key)) {
     handleClick(key);
   }
+
   if (keyCode === 110 || keyCode === 188) {
     handleClick("comma");
   }
+
   if (keyCode === 107 || keyCode === 187) {
     handleClick("plus");
   }
+
   if (keyCode === 109 || keyCode === 189) {
     handleClick("minus");
   }
+
   if (keyCode === 111) {
     handleClick("divide");
   }
+
   if (keyCode === 106) {
     handleClick("multiply");
   }
+
   if (keyCode === 12 || keyCode === 8) {
     handleClick("clear");
   }
+
   if (keyCode === 13) {
     handleClick("equals");
   }
+
   // debug
   document.querySelector('.temp-num').textContent = `-------tempNum: ${tempNum}`;
   document.querySelector('.active-operator').textContent = `activeOperator: ${activeOperator}`;
   document.querySelector('.current-num').textContent = `----currentNum: [${currentNum}]`;
   document.querySelector('.result').textContent = `--------result: ${result}`;
-
 }
