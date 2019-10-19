@@ -1,7 +1,6 @@
 # Vanilla Javascript Calculator
 
 ## [Demo](https://nchlsschndr.github.io/calculator)
----
 
 ## Summary
 
