@@ -8,17 +8,17 @@
 //       big.js .round([characters fitting into display] - [comma] - [everything before comma])
 //       https://stackoverflow.com/questions/9133102/how-to-grab-substring-before-a-specified-character-jquery-or-javascript
 
-const display = document.querySelector("#display");
-const keys = document.querySelector(".pad");
+const display = document.querySelector('#display');
+const keys = document.querySelector('.pad');
 
 let currentNum = [];
 let tempNum = null;
-let activeOperator = "";
+let activeOperator = '';
 let result = null;
 
-keys.addEventListener("click", function (event) {
+keys.addEventListener('click', event => {
   // event delegation
-  if (event.target.matches("button")) {
+  if (event.target.matches('button')) {
     const key = event.target.dataset.key;
     handleClick(key);
   }
@@ -31,42 +31,36 @@ function handleClick(key) {
     if (result) {
       currentNum = [];
       result = null;
-      updateDisplay("0");
+      updateDisplay('0');
     }
-    currentNum.push(parseInt(key));
+    currentNum.push(parseInt(key, 10));
     updateDisplay(arrToFloat(currentNum));
-
   }
 
-  if (key === "comma") {
+  if (key === 'comma') {
     // dont set comma if there is a comma already or currentNum is empty
-    if ((currentNum.indexOf('.') > -1) || currentNum.length === 0) {
+    if (currentNum.indexOf('.') > -1 || currentNum.length === 0) {
       return;
     }
-    currentNum.push(".");
-    updateDisplay(arrToFloat(currentNum) + ".");
+    currentNum.push('.');
+    updateDisplay(`${arrToFloat(currentNum)}.`);
   }
 
-  if (key === "allClear") {
+  if (key === 'allClear') {
     currentNum = [];
     tempNum = null;
     result = null;
     setOperator('reset');
-    updateDisplay("0");
+    updateDisplay('0');
   }
 
-  if (key === "clear") {
+  if (key === 'clear') {
     currentNum = [];
-    updateDisplay("0");
+    updateDisplay('0');
   }
 
   // Operators
-  if (
-    key === "plus" ||
-    key === "minus" ||
-    key === "divide" ||
-    key === "multiply"
-  ) {
+  if (key === 'plus' || key === 'minus' || key === 'divide' || key === 'multiply') {
     // only if a number was clicked or tempNum is not empty
     if (currentNum.length > 0 || tempNum != null) {
       equals();
@@ -74,7 +68,7 @@ function handleClick(key) {
     }
   }
 
-  if (key === "equals") {
+  if (key === 'equals') {
     equals();
   }
 
@@ -85,22 +79,20 @@ function handleClick(key) {
   document.querySelector('.result').textContent = `--------result: ${result}`;
 }
 
-
-
 function updateDisplay(value) {
   display.textContent = value;
 }
 
 // converts array (currenNum) to float to calculate with
 function arrToFloat(array) {
-  return parseFloat(array.join(""));
+  return parseFloat(array.join(''));
 }
 
 function setOperator(operator) {
-  const buttons = document.querySelectorAll(`button[data-key-type="operator"]`);
-  
-  buttons.forEach(function (el) {
-    el.classList.remove("active");
+  const buttons = document.querySelectorAll('button[data-key-type="operator"]');
+
+  buttons.forEach(el => {
+    el.classList.remove('active');
   });
 
   if (operator === 'reset') {
@@ -118,7 +110,7 @@ function setOperator(operator) {
   activeOperator = operator;
 
   const button = document.querySelector(`button[data-key="${operator}"]`);
-  button.classList.add("active");
+  button.classList.add('active');
 }
 
 function equals() {
@@ -138,23 +130,23 @@ function calculate(n1, operator, n2) {
   const y = new Big(n2);
 
   switch (operator) {
-    case "plus":
+    case 'plus':
       return x.plus(y).round(10);
-    case "minus":
+    case 'minus':
       return x.minus(y).round(10);
-    case "divide":
+    case 'divide':
       return x.div(y).round(10);
-    case "multiply":
+    case 'multiply':
       return x.times(y).round(10);
     default:
-      return "operator error";
+      return 'operator error';
   }
 }
 
 // Keyboard functionality
-document.onkeydown = function (event) {
+document.onkeydown = event => {
   event.preventDefault();
-  
+
   const key = String.fromCharCode(event.keyCode);
   const keyCode = event.keyCode;
 
@@ -163,31 +155,31 @@ document.onkeydown = function (event) {
   }
 
   if (keyCode === 110 || keyCode === 188) {
-    handleClick("comma");
+    handleClick('comma');
   }
 
   if (keyCode === 107 || keyCode === 187) {
-    handleClick("plus");
+    handleClick('plus');
   }
 
   if (keyCode === 109 || keyCode === 189) {
-    handleClick("minus");
+    handleClick('minus');
   }
 
   if (keyCode === 111) {
-    handleClick("divide");
+    handleClick('divide');
   }
 
   if (keyCode === 106) {
-    handleClick("multiply");
+    handleClick('multiply');
   }
 
   if (keyCode === 12 || keyCode === 8) {
-    handleClick("clear");
+    handleClick('clear');
   }
 
   if (keyCode === 13) {
-    handleClick("equals");
+    handleClick('equals');
   }
 
   // debug
@@ -195,4 +187,4 @@ document.onkeydown = function (event) {
   document.querySelector('.active-operator').textContent = `activeOperator: ${activeOperator}`;
   document.querySelector('.current-num').textContent = `----currentNum: [${currentNum}]`;
   document.querySelector('.result').textContent = `--------result: ${result}`;
-}
+};

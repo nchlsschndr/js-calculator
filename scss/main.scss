@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap");
 
 $width: 300px;
 $bWidth: $width / 3;
@@ -9,9 +9,10 @@ $clWidth: $width / 2;
 $clHeight: $width / 4;
 $zeroWidth: $width / 3 * 2;
 $bFs: $width / 10;
-$dFs: ($width / 10) + ($width / 30); 
+$dFs: ($width / 10) + ($width / 30);
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -24,8 +25,9 @@ body {
   background: #334;
 }
 
-button, p {
-  font-family: "Open Sans"
+button,
+p {
+  font-family: "Open Sans";
 }
 
 :root {
@@ -37,7 +39,7 @@ button, p {
   background: #445;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 0px 0px 50px 0px rgba(17, 17, 34, .4);
+  box-shadow: 0px 0px 50px 0px rgba(17, 17, 34, 0.4);
 }
 
 #display {
@@ -71,7 +73,7 @@ button, p {
   font-size: $bFs;
   user-select: none;
   cursor: pointer;
-  transition: background .1s;
+  transition: background 0.1s;
   outline: none;
   p {
     margin: 0;
@@ -84,7 +86,9 @@ button, p {
   }
 }
 
-.operations, .numbers, .clear {
+.operations,
+.numbers,
+.clear {
   display: flex;
   flex-wrap: wrap;
 }
@@ -93,10 +97,9 @@ button, p {
   margin-bottom: 10px;
   .button {
     height: $opHeight;
-    width: $opWidth
+    width: $opWidth;
   }
 }
-
 
 .clear {
   margin: 10px 0;
@@ -116,7 +119,7 @@ button, p {
 }
 
 .debug {
-  opacity: .4;
+  opacity: 0.4;
   position: fixed;
   top: 0;
   left: 0;
