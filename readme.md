@@ -14,3 +14,4 @@ Live Server and Node-Sass: `npm run dev`
 
 - merge AC and C buttons
 - better button layout
+- mobile friendly just for fun
