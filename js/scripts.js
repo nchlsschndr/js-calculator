@@ -1,16 +1,7 @@
-// Basically the numbers get pushed to currentNum
-// when clicking an operator, currentNum gets tempNum
-// new numbers get pushed to currentNum again
-// in the end its tempNum *operator* currentNum
-
-// TODO: Round displayed number
-//       big.js .round([characters fitting into display] - [comma] - [everything before comma])
-//       https://stackoverflow.com/questions/9133102/how-to-grab-substring-before-a-specified-character-jquery-or-javascript
-
 const display = document.querySelector('#display');
 const keys = document.querySelector('.pad');
 
-let currentNum = [];
+let currentNum = '';
 let tempNum = null;
 let activeOperator = '';
 let result = null;
@@ -28,12 +19,12 @@ function handleClick(key) {
     if (/[0-9]/.test(key)) {
         // empty everything after there was a previous operation to start over
         if (result) {
-            currentNum = [];
+            currentNum = '';
             result = null;
             updateDisplay('0');
         }
-        currentNum.push(parseInt(key, 10));
-        updateDisplay(arrToFloat(currentNum));
+        currentNum += parseInt(key, 10);
+        updateDisplay(currentNum);
     }
 
     if (key === 'comma') {
@@ -41,12 +32,12 @@ function handleClick(key) {
         if (currentNum.indexOf('.') > -1 || currentNum.length === 0) {
             return;
         }
-        currentNum.push('.');
-        updateDisplay(`${arrToFloat(currentNum)}.`);
+        currentNum += '.';
+        updateDisplay(currentNum);
     }
 
     if (key === 'allClear') {
-        currentNum = [];
+        currentNum = '';
         tempNum = null;
         result = null;
         setOperator('reset');
@@ -54,17 +45,17 @@ function handleClick(key) {
     }
 
     if (key === 'clear') {
-        currentNum = [];
+        currentNum = '';
         updateDisplay('0');
     }
 
     // Operators
     if (key === 'plus' || key === 'minus' || key === 'divide' || key === 'multiply') {
-        // only if a number was clicked or tempNum is not empty
-        if (currentNum.length > 0 || tempNum != null) {
+        // calculate if a calculation is due
+        if (currentNum.length > 0 && tempNum !== null) {
             equals();
-            setOperator(key);
         }
+        setOperator(key);
     }
 
     if (key === 'equals') {
@@ -73,18 +64,17 @@ function handleClick(key) {
 
     // debug
     document.querySelector('.temp-num').textContent = `-------tempNum: ${tempNum}`;
-    document.querySelector('.active-operator').textContent = `activeOperator: ${activeOperator}`;
-    document.querySelector('.current-num').textContent = `----currentNum: [${currentNum}]`;
+    document.querySelector('.active-operator').textContent = `activeOperator: '${activeOperator}'`;
+    document.querySelector('.current-num').textContent = `----currentNum: '${currentNum}'`;
     document.querySelector('.result').textContent = `--------result: ${result}`;
 }
 
 function updateDisplay(value) {
+    if (value.length > 12) {
+        display.textContent = value.substring(0, 10) + '..';
+        return;
+    }
     display.textContent = value;
-}
-
-// converts array (currenNum) to float to calculate with
-function arrToFloat(array) {
-    return parseFloat(array.join(''));
 }
 
 function setOperator(operator) {
@@ -99,44 +89,51 @@ function setOperator(operator) {
         return;
     }
 
-    // only switch numbers if no operator set
-    // with this you can change operator after currentNum is set
-    if (!activeOperator) {
-        tempNum = arrToFloat(currentNum);
-        currentNum = [];
+    if (currentNum !== '') {
+        // only switch numbers if no operator set
+        // with this you can change operator after currentNum is set
+        if (!activeOperator) {
+            tempNum = parseFloat(currentNum);
+            currentNum = '';
+        }
+
+        activeOperator = operator;
+
+        const button = document.querySelector(`button[data-key="${operator}"]`);
+        button.classList.add('active');
     }
-
-    activeOperator = operator;
-
-    const button = document.querySelector(`button[data-key="${operator}"]`);
-    button.classList.add('active');
 }
 
 function equals() {
-    if (tempNum != null && currentNum.length > 0) {
-        result = calculate(tempNum, activeOperator, arrToFloat(currentNum));
+    if (tempNum !== null && currentNum.length > 0) {
+        if (activeOperator === 'divide' && currentNum === '0') {
+            updateDisplay('Err: DIV/0!');
+            currentNum = '';
+            return;
+        }
+        result = calculate(tempNum, activeOperator, parseFloat(currentNum));
         tempNum = null;
-        currentNum = [result]; // to calculate with
+        currentNum = result.toString(); // calculate with in the next step
         setOperator('reset');
-        updateDisplay(result);
+        updateDisplay(currentNum);
     }
 }
 
-function calculate(n1, operator, n2) {
+function calculate(one, operator, two) {
     // Big.js for calculating with floats
     // https://github.com/MikeMcl/big.js/
-    const x = new Big(n1);
-    const y = new Big(n2);
+    const x = new Big(one);
+    const y = new Big(two);
 
     switch (operator) {
         case 'plus':
-            return x.plus(y).round(10);
+            return x.plus(y);
         case 'minus':
-            return x.minus(y).round(10);
+            return x.minus(y);
         case 'divide':
-            return x.div(y).round(10);
+            return x.div(y);
         case 'multiply':
-            return x.times(y).round(10);
+            return x.times(y);
         default:
             return 'operator error';
     }
@@ -144,8 +141,6 @@ function calculate(n1, operator, n2) {
 
 // Keyboard functionality
 document.onkeydown = (event) => {
-    event.preventDefault();
-
     const key = String.fromCharCode(event.keyCode);
     const keyCode = event.keyCode;
 
@@ -180,10 +175,4 @@ document.onkeydown = (event) => {
     if (keyCode === 13) {
         handleClick('equals');
     }
-
-    // debug
-    document.querySelector('.temp-num').textContent = `-------tempNum: ${tempNum}`;
-    document.querySelector('.active-operator').textContent = `activeOperator: ${activeOperator}`;
-    document.querySelector('.current-num').textContent = `----currentNum: [${currentNum}]`;
-    document.querySelector('.result').textContent = `--------result: ${result}`;
 };
