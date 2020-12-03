@@ -42,12 +42,26 @@
             </div>
         </div>
         <div class="debug">
-            <p class="temp-num">-------tempNum: null</p>
-            <p class="active-operator">activeOperator: ''</p>
-            <p class="current-num">----currentNum: ''</p>
-            <p class="result">--------result: null</p>
+            <div class="checkbox-container">
+                <input type="checkbox" name="show-debug-data" id="show-debug-data" onclick="showDebug()" />
+                <label for="show-debug-data">Debug window</label>
+            </div>
+            <div class="debug-data" style="display: none">
+                <hr />
+                <p class="temp-num">-------tempNum: null</p>
+                <p class="active-operator">activeOperator: ''</p>
+                <p class="current-num">----currentNum: ''</p>
+                <p class="result">--------result: null</p>
+            </div>
         </div>
 
         <script type="text/javascript" src="js/scripts.js"></script>
+        <script type="text/javascript">
+            const debugData = document.querySelector('.debug-data');
+            const checkbox = document.querySelector('#show-debug-data');
+            function showDebug() {
+                checkbox.checked ? (debugData.style.display = 'block') : (debugData.style.display = 'none');
+            }
+        </script>
     </body>
 </html>
