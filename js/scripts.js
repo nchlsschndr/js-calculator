@@ -1,3 +1,22 @@
+/*
+
+
+
+
+
+result BRAUCHT MAN NICHT?????
+ACHTUNG BEI handleClick ZAHL
+DA IST result WICHTIG
+
+ARROW FUNCTIONS
+
+
+
+
+
+
+*/
+
 const display = document.querySelector('#display');
 const keys = document.querySelector('.pad');
 
@@ -14,7 +33,7 @@ keys.addEventListener('click', (event) => {
     }
 });
 
-function handleClick(key) {
+const handleClick = (key) => {
     // check if key is a number
     if (/[0-9]/.test(key)) {
         // empty everything after there was a previous operation to start over
@@ -67,17 +86,17 @@ function handleClick(key) {
     document.querySelector('.active-operator').textContent = `activeOperator: '${activeOperator}'`;
     document.querySelector('.current-num').textContent = `----currentNum: '${currentNum}'`;
     document.querySelector('.result').textContent = `--------result: ${result}`;
-}
+};
 
-function updateDisplay(value) {
+const updateDisplay = (value) => {
     if (value.length > 12) {
         display.textContent = value.substring(0, 10) + '..';
         return;
     }
     display.textContent = value;
-}
+};
 
-function setOperator(operator) {
+const setOperator = (operator) => {
     const buttons = document.querySelectorAll('button[data-key-type="operator"]');
 
     buttons.forEach((el) => {
@@ -98,13 +117,12 @@ function setOperator(operator) {
         }
 
         activeOperator = operator;
-
         const button = document.querySelector(`button[data-key="${operator}"]`);
         button.classList.add('active');
     }
-}
+};
 
-function equals() {
+const equals = () => {
     if (tempNum !== null && currentNum.length > 0) {
         if (activeOperator === 'divide' && currentNum === '0') {
             updateDisplay('Err: DIV/0!');
@@ -117,9 +135,9 @@ function equals() {
         setOperator('reset');
         updateDisplay(currentNum);
     }
-}
+};
 
-function calculate(one, operator, two) {
+const calculate = (one, operator, two) => {
     // Big.js for calculating with floats
     // https://github.com/MikeMcl/big.js/
     const x = new Big(one);
@@ -137,7 +155,7 @@ function calculate(one, operator, two) {
         default:
             return 'operator error';
     }
-}
+};
 
 // Keyboard functionality
 document.onkeydown = (event) => {
