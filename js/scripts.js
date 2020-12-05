@@ -1,29 +1,10 @@
-/*
-
-
-
-
-
-result BRAUCHT MAN NICHT?????
-ACHTUNG BEI handleClick ZAHL
-DA IST result WICHTIG
-
-ARROW FUNCTIONS
-
-
-
-
-
-
-*/
-
 const display = document.querySelector('#display');
 const keys = document.querySelector('.pad');
 
 let currentNum = '';
 let tempNum = null;
 let activeOperator = '';
-let result = null;
+let calcIsDone = false;
 
 keys.addEventListener('click', (event) => {
     // event delegation
@@ -37,9 +18,9 @@ const handleClick = (key) => {
     // check if key is a number
     if (/[0-9]/.test(key)) {
         // empty everything after there was a previous operation to start over
-        if (result) {
+        if (calcIsDone) {
             currentNum = '';
-            result = null;
+            calcIsDone = false;
             updateDisplay('0');
         }
         currentNum += parseInt(key, 10);
@@ -58,7 +39,7 @@ const handleClick = (key) => {
     if (key === 'allClear') {
         currentNum = '';
         tempNum = null;
-        result = null;
+        calcIsDone = false;
         setOperator('reset');
         updateDisplay('0');
     }
@@ -85,7 +66,7 @@ const handleClick = (key) => {
     document.querySelector('.temp-num').textContent = `-------tempNum: ${tempNum}`;
     document.querySelector('.active-operator').textContent = `activeOperator: '${activeOperator}'`;
     document.querySelector('.current-num').textContent = `----currentNum: '${currentNum}'`;
-    document.querySelector('.result').textContent = `--------result: ${result}`;
+    document.querySelector('.calc-is-done').textContent = `----calcIsDone: ${calcIsDone}`;
 };
 
 const updateDisplay = (value) => {
@@ -129,9 +110,10 @@ const equals = () => {
             currentNum = '';
             return;
         }
-        result = calculate(tempNum, activeOperator, parseFloat(currentNum));
-        tempNum = null;
+        const result = calculate(tempNum, activeOperator, parseFloat(currentNum));
         currentNum = result.toString(); // calculate with in the next step
+        tempNum = null;
+        calcIsDone = true;
         setOperator('reset');
         updateDisplay(currentNum);
     }
