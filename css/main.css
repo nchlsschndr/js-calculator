@@ -60,7 +60,7 @@ p {
   outline: none; }
   .button p {
     margin: 0; }
-  .button:active {
+  .button.active {
     background: #334; }
 
 .operations,
