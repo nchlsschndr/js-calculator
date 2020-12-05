@@ -62,6 +62,8 @@ p {
     margin: 0; }
   .button.active {
     background: #334; }
+  .button:active {
+    background: #334; }
 
 .operations,
 .numbers,

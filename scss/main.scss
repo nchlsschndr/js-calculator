@@ -81,6 +81,9 @@ p {
     &.active {
         background: #334;
     }
+    &:active {
+        background: #334;
+    }
 }
 
 .operations,
