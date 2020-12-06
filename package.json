@@ -7,7 +7,7 @@
         "sass": "node-sass -w scss/ -o css/",
         "live-server": "live-server --watch=./ --ignore=./.git",
         "dev": "run-p live-server sass",
-        "test": "mocha --reporter list"
+        "test": "cypress open"
     },
     "keywords": [],
     "author": "",
