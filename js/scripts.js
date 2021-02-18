@@ -1,3 +1,9 @@
+// TODO:
+// -Merge updateDisplay and 'currentNum = xxx'
+// -merge ac and C
+// -Flexible layout
+// Tests!!
+
 const display = document.querySelector('#display');
 const keys = document.querySelector('.pad');
 
@@ -58,6 +64,41 @@ const handleClick = (key) => {
         setOperator(key);
     }
 
+    if (key === 'plusminus') {
+        if (currentNum !== '') {
+            if (currentNum.indexOf('-') === -1) {
+                currentNum = '-' + currentNum;
+                updateDisplay(currentNum);
+            } else {
+                currentNum = currentNum.substring(1);
+                updateDisplay(currentNum);
+            }
+        }
+    }
+
+    if (key === 'percentage') {
+        if (activeOperator === 'multiply') {
+            currentNum = (tempNum / 100) * currentNum;
+            calcIsDone = true;
+            setOperator('reset');
+            updateDisplay(currentNum);
+        }
+
+        if (activeOperator === 'plus') {
+            currentNum = tempNum + (tempNum / 100) * currentNum;
+            calcIsDone = true;
+            setOperator('reset');
+            updateDisplay(currentNum);
+        }
+
+        if (activeOperator === 'minus') {
+            currentNum = tempNum - (tempNum / 100) * currentNum;
+            calcIsDone = true;
+            setOperator('reset');
+            updateDisplay(currentNum);
+        }
+    }
+
     if (key === 'equals') {
         equals();
     }
@@ -106,8 +147,8 @@ const setOperator = (operator) => {
 const equals = () => {
     if (tempNum !== null && currentNum.length > 0) {
         if (activeOperator === 'divide' && currentNum === '0') {
-            updateDisplay('Err: DIV/0!');
             currentNum = '';
+            updateDisplay('Err: DIV/0!');
             return;
         }
         const result = calculate(tempNum, activeOperator, parseFloat(currentNum));
